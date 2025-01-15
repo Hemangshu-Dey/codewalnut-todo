@@ -17,8 +17,6 @@ app.use(cookieParser());
 
 //routes
 import { authRouter } from "./routes/auth.routes.js";
-
-app.use("/api/auth", authRouter);
 import { todoRouter } from "./routes/todo.routes.js";
 import { tokenRouter } from "./routes/newAccessToken.routes.js";
 
