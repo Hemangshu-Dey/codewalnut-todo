@@ -4,87 +4,74 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { passwordRegEx, emailRegEx } from "@/constants/RegEx";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
-
+import { useUserStore } from "@/utils/store";
 interface FormData {
-  username: string;
-  email: string;
+  identifier: string;
   password: string;
 }
 
-export default function Register() {
-  const navigate = useNavigate();
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
+export default function Login() {
   const [formData, setFormData] = useState<FormData>({
-    username: "",
-    email: "",
+    identifier: "",
     password: "",
   });
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const { setCurrentUser } = useUserStore(); // Correct way to access the store
+
+  const navigate = useNavigate();
 
   const clearFormData = () => {
     setFormData({
-      username: "",
-      email: "",
+      identifier: "",
       password: "",
     });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name: string = e.target.name;
-    const value: string = e.target.value;
-
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    console.log(import.meta.env.VITE_BACKEND_URL);
-
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsDisabled(true);
+
 
     for (const key in formData) {
       if (!formData[key as keyof FormData]) {
         setIsDisabled(false);
-        toast.error("⚠︎ Ensure no fields are empty.");
+        toast.error("⚠︎ Please fill in all fields");
         return;
       }
     }
 
-    if (!emailRegEx.test(formData.email)) {
-      setIsDisabled(false);
-      toast.error("⚠︎ Enter a valid email.");
-      return;
-    }
-
-    if (!passwordRegEx.test(formData.password)) {
-      setIsDisabled(false);
-      toast.error(
-        "⚠︎ Enter a strong password:\n- At least 8 characters long\n- Contains a lowercase letter\n- Contains an uppercase letter\n- Contains a number\n- Contains a special character"
-      );
-      return;
-    }
-
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         {
-          username: formData.username,
-          email: formData.email,
+          identifier: formData.identifier,
           password: formData.password,
+        },
+        {
+          withCredentials: true,
         }
       );
 
-      toast.success("🎉 User registered successfully.");
-      navigate("/login");
+      setCurrentUser({
+        userid: response.data.data.id,
+        username: response.data.data.username,
+        email: response.data.data.email,
+      });
+      toast.success("🎉 Login successful!");
+      navigate("/profile");
     } catch (error: unknown) {
       console.error(error);
-      toast.error("❗ Error registering user.");
+      toast.error("❗ Invalid credentials");
     }
 
     clearFormData();
@@ -97,31 +84,19 @@ export default function Register() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            Register
+            Login
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={handleRegister}>
+          <form className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Name</Label>
+              <Label htmlFor="Username or password">Email</Label>
               <Input
-                id="username"
-                name="username"
-                type="text"
-                placeholder="John Doe"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="john@example.com"
-                value={formData.email}
+                id="identifier"
+                name="identifier"
+                type="test"
+                placeholder="Username or Email"
+                value={formData.identifier}
                 onChange={handleChange}
                 required
               />
@@ -139,8 +114,13 @@ export default function Register() {
                 minLength={8}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isDisabled}>
-              Register
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={handleLogin}
+              disabled={isDisabled}
+            >
+              Login
             </Button>
           </form>
         </CardContent>
