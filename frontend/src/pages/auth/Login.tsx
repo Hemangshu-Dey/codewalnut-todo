@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
-import { useUserStore } from "@/utils/store";
+import useStore from "@/utils/store";
 interface FormData {
   identifier: string;
   password: string;
@@ -18,7 +18,12 @@ export default function Login() {
     password: "",
   });
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const { setCurrentUser } = useUserStore(); // Correct way to access the store
+
+
+  const goToRegister = () => {
+    navigate("/register");
+  };
+  const { setCurrentUser } = useStore();
 
   const navigate = useNavigate();
 
@@ -90,7 +95,7 @@ export default function Login() {
         <CardContent>
           <form className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="Username or password">Email</Label>
+              <Label htmlFor="Username or password">Email or Username</Label>
               <Input
                 id="identifier"
                 name="identifier"
@@ -121,6 +126,14 @@ export default function Login() {
               disabled={isDisabled}
             >
               Login
+            </Button>
+            <Button
+              type="button"
+              className="w-full mt-4"
+              onClick={goToRegister}
+              disabled={isDisabled}
+            >
+              Go to Register Page
             </Button>
           </form>
         </CardContent>

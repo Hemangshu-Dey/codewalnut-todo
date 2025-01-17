@@ -1,3 +1,3 @@
-const dbRetries = 4;
+const DBRETRIES = 4;
 
-export { dbRetries };
+export { DBRETRIES };

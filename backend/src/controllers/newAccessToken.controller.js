@@ -9,7 +9,7 @@ const newAccessToken = async (req, res) => {
   if (!refreshToken) return response(res, 401, "Refresh Token was not sent");
 
   try {
-    const decoded = jwt.verify(refreshToken, process.env.JWT_KEY);
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
     const userid = decoded.id;
     const id = new mongoose.Types.ObjectId(userid);
 
@@ -26,7 +26,7 @@ const newAccessToken = async (req, res) => {
         username: user.username,
         email: user.email,
       },
-      process.env.JWT_KEY,
+      process.env.JWT_SECRET,
       {
         expiresIn: "15m",
       }
@@ -36,7 +36,7 @@ const newAccessToken = async (req, res) => {
       {
         id: user._id,
       },
-      process.env.JWT_KEY,
+      process.env.JWT_SECRET,
       {
         expiresIn: "15d",
       }

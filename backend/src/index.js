@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 import { dbConnect } from "./dbConnect/dbConnect.js";
-import { dbRetries } from "./constants.js";
+import { DBRETRIES } from "./constants.js";
 import { app } from "./app.js";
 
 dotenv.config();
 
 await (async () => {
-  let retries = dbRetries;
+  let retries = DBRETRIES;
   while (retries > 0) {
     try {
       console.log("Trying to connect to database");
