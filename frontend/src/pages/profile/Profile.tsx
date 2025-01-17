@@ -41,115 +41,116 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-  const validation = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/validation`,
-        {
-          withCredentials: true,
-        }
-      );
+  useEffect(() => {
+    if (currentUser.username) return;
 
-      setCurrentUser({
-        userid: response.data.data.id,
-        username: response.data.data.username,
-        email: response.data.data.email,
-      });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status == 401) {
-          const res = await getNewAccessToken();
-          if (res === "401") navigate("/register");
-          else {
-            setCurrentUser({
-              userid: res.data.data.id,
-              username: res.data.data.username,
-              email: res.data.data.email,
-            });
+    const validation = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/validation`,
+          {
+            withCredentials: true,
+          }
+        );
+
+        setCurrentUser({
+          userid: response.data.data.id,
+          username: response.data.data.username,
+          email: response.data.data.email,
+        });
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status == 401) {
+            const res = await getNewAccessToken();
+            if (res === "401") navigate("/register");
+            else {
+              setCurrentUser({
+                userid: res.data.data.id,
+                username: res.data.data.username,
+                email: res.data.data.email,
+              });
+            }
+          } else {
+            toast.error("Error fetching data");
           }
         } else {
-          toast.error("Error fetching data");
+          toast.error("An unknown error occurred");
         }
-      } else {
-        toast.error("An unknown error occurred");
       }
-    }
-  };
-
-  const getToDos = async () => {
-    try {
-      const response = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/todo/getToDo?categoryId=${activeCategory}`,
-        {
-          withCredentials: true,
-        }
-      );
-      setTodosState(response.data.data || []);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status == 401) {
-          const res = await getNewAccessToken();
-          if (res === "401") navigate("/register");
-          else {
-            setCurrentUser({
-              userid: res.data.data.id,
-              username: res.data.data.username,
-              email: res.data.data.email,
-            });
-          }
-        } else {
-          toast.error("Error fetching data");
-        }
-      } else {
-        toast.error("An unknown error occurred");
-      }
-    }
-  };
-
-  const getToDoCategories = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/todo/getToDoCategory`,
-        {
-          withCredentials: true,
-        }
-      );
-      setCategoryNames(response.data.data);
-      setActiveCategory(response.data.data[0]?._id);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status == 401) {
-          const res = await getNewAccessToken();
-          if (res === "401") navigate("/register");
-          else {
-            setCurrentUser({
-              userid: res.data.data.id,
-              username: res.data.data.username,
-              email: res.data.data.email,
-            });
-          }
-        } else {
-          toast.error("Error fetching data");
-        }
-      } else {
-        toast.error("An unknown error occurred");
-      }
-    }
-  };
+    };
+    validation();
+  }, [currentUser, navigate, setCurrentUser]);
 
   useEffect(() => {
-    if (!currentUser.username) validation();
-  }, [currentUser]);
-
-  useEffect(() => {
+    const getToDoCategories = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/todo/getToDoCategory`,
+          {
+            withCredentials: true,
+          }
+        );
+        setCategoryNames(response.data.data);
+        setActiveCategory(response.data.data[0]?._id);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status == 401) {
+            const res = await getNewAccessToken();
+            if (res === "401") navigate("/register");
+            else {
+              setCurrentUser({
+                userid: res.data.data.id,
+                username: res.data.data.username,
+                email: res.data.data.email,
+              });
+            }
+          } else {
+            toast.error("Error fetching data");
+          }
+        } else {
+          toast.error("An unknown error occurred");
+        }
+      }
+    };
     getToDoCategories();
-  }, [categoryReRender]);
+  }, [categoryReRender, navigate, setActiveCategory, setCurrentUser]);
 
   useEffect(() => {
-    if (activeCategory) getToDos();
-  }, [todoReRender, activeCategory]);
+    if (!activeCategory) return;
+
+    const getToDos = async () => {
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/todo/getToDo?categoryId=${activeCategory}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setTodosState(response.data.data || []);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status == 401) {
+            const res = await getNewAccessToken();
+            if (res === "401") navigate("/register");
+            else {
+              setCurrentUser({
+                userid: res.data.data.id,
+                username: res.data.data.username,
+                email: res.data.data.email,
+              });
+            }
+          } else {
+            toast.error("Error fetching data");
+          }
+        } else {
+          toast.error("An unknown error occurred");
+        }
+      }
+    };
+    getToDos();
+  }, [todoReRender, activeCategory, setTodosState, navigate, setCurrentUser]);
 
   return (
     <div className="flex flex-col h-screen">
