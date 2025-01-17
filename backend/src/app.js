@@ -4,7 +4,6 @@ import cors from "cors";
 
 const app = express();
 
-//configurations
 app.use(
   cors({
     origin: [`${process.env.FRONT_URL}`, "http://localhost:5173"],
@@ -15,7 +14,6 @@ app.use(express.json({ limit: "16kb" }));
 app.use("/static", express.static("public"));
 app.use(cookieParser());
 
-//routes
 import { authRouter } from "./routes/auth.routes.js";
 import { todoRouter } from "./routes/todo.routes.js";
 import { tokenRouter } from "./routes/newAccessToken.routes.js";

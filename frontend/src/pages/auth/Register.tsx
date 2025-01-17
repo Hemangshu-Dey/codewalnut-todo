@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { passwordRegEx, emailRegEx } from "@/constants/RegEx";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import axios from "axios";
 
 interface FormData {
@@ -17,6 +17,10 @@ interface FormData {
 export default function Register() {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+   const goToLogin = () => {
+     navigate("/login");
+   };
 
   const [formData, setFormData] = useState<FormData>({
     username: "",
@@ -43,7 +47,6 @@ export default function Register() {
   };
 
   const handleRegister = async (e: React.FormEvent) => {
-    console.log(import.meta.env.VITE_BACKEND_URL);
 
     e.preventDefault();
     setIsDisabled(true);
@@ -93,7 +96,6 @@ export default function Register() {
 
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <Toaster />
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
@@ -141,6 +143,14 @@ export default function Register() {
             </div>
             <Button type="submit" className="w-full" disabled={isDisabled}>
               Register
+            </Button>
+            <Button
+              type="button"
+              className="w-full mt-4"
+              onClick={goToLogin}
+              disabled={isDisabled}
+            >
+              Go to Login Page
             </Button>
           </form>
         </CardContent>

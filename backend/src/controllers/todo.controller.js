@@ -53,6 +53,10 @@ const createToDoCategory = async (req, res) => {
 
     const userData = await User.findOne({ _id: userId });
 
+    if (!userData.categoryNames) {
+      userData.categoryNames = [];
+    }
+
     userData.categoryNames = [...userData.categoryNames, newCategory._id];
 
     await userData.save();
