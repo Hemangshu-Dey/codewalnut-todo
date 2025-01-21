@@ -45,17 +45,17 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
-          toast.error("⚠︎ Failed to delete category. Try again.");
+          toast.error("Failed to delete category. Try again.");
           setCurrentUserState({
             userid: "",
             username: "",
             email: "",
           });
         } else {
-          toast.error(`⚠︎ ${error.response?.data.message}.`);
+          toast.error(`${error.response?.data.message}.`);
         }
       } else {
-        toast.error("⚠︎ An unknown error occurred.");
+        toast.error("An unknown error occurred.");
       }
     }
     setIsDisabled(false);

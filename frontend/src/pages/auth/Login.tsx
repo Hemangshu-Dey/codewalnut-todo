@@ -23,8 +23,7 @@ export default function Login() {
   const goToRegister = () => {
     navigate("/register");
   };
-  const { setCurrentUser } = useStore();
-
+  const setCurrentUserState = useStore((state) => state.setCurrentUser);
   const navigate = useNavigate();
 
   const clearFormData = () => {
@@ -50,7 +49,7 @@ export default function Login() {
     for (const key in formData) {
       if (!formData[key as keyof FormData]) {
         setIsDisabled(false);
-        toast.error("⚠︎ Please fill in all fields");
+        toast.error("Please fill in all fields");
         return;
       }
     }
@@ -66,19 +65,17 @@ export default function Login() {
           withCredentials: true,
         }
       );
-
-      setCurrentUser({
+      setCurrentUserState({
         userid: response.data.data.id,
         username: response.data.data.username,
         email: response.data.data.email,
       });
-      toast.success("🎉 Login successful!");
+      toast.success("Login successful!");
       navigate("/profile");
     } catch (error: unknown) {
       console.error(error);
-      toast.error("❗ Invalid credentials");
+      toast.error("Invalid credentials");
     }
-
     clearFormData();
     setIsDisabled(false);
   };

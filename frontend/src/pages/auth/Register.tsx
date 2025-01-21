@@ -54,21 +54,21 @@ export default function Register() {
     for (const key in formData) {
       if (!formData[key as keyof FormData]) {
         setIsDisabled(false);
-        toast.error("⚠︎ Ensure no fields are empty.");
+        toast.error("Ensure no fields are empty.");
         return;
       }
     }
 
     if (!emailRegEx.test(formData.email)) {
       setIsDisabled(false);
-      toast.error("⚠︎ Enter a valid email.");
+      toast.error("Enter a valid email.");
       return;
     }
 
     if (!passwordRegEx.test(formData.password)) {
       setIsDisabled(false);
       toast.error(
-        "⚠︎ Enter a strong password:\n- At least 8 characters long\n- Contains a lowercase letter\n- Contains an uppercase letter\n- Contains a number\n- Contains a special character"
+        "Enter a strong password:\n- At least 8 characters long\n- Contains a lowercase letter\n- Contains an uppercase letter\n- Contains a number\n- Contains a special character"
       );
       return;
     }

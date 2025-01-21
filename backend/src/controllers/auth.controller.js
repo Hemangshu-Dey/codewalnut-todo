@@ -44,7 +44,6 @@ const registerUser = async (req, res) => {
 
     return response(res, 200, "User registered successfully");
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -125,7 +124,6 @@ const loginUser = async (req, res) => {
         error: "none",
       });
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -174,7 +172,6 @@ const logout = async (req, res) => {
         error: "none",
       });
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
