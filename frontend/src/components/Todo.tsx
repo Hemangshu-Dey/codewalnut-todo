@@ -25,17 +25,43 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
   const [date, setDate] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-
   const todoRender = useStore((state) => state.todoReRender);
   const setTodoRender = useStore((state) => state.setTodoReRender);
 
   const setCurrentUserState = useStore((state) => state.setCurrentUser);
+  const [deadlineColor, setDeadlineColor] = useState<string>("");
+
+  useEffect(() => {
+    const dateObj = new Date(todos.deadline);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+    dateObj.setHours(0, 0, 0, 0);
+
+    setDate(
+      dateObj.toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+
+    if (dateObj < today) {
+      setDeadlineColor("text-red-500");
+    } else if (dateObj.getTime() === today.getTime()) {
+      setDeadlineColor("text-amber-500");
+    } else {
+      setDeadlineColor("text-green-500");
+    }
+  }, [todos.deadline]);
 
   const handleTodoDelete = async () => {
     setIsDisabled(true);
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/todo/deleteToDo?id=${todos._id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/todo/deleteToDo?id=${
+          todos._id
+        }`,
         {
           withCredentials: true,
         }
@@ -72,48 +98,76 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
     );
   }, [todos.deadline]);
 
-return (
-  <div className="flex justify-center items-center max-h-[calc(100vh-5rem)] px-4">
-    <Card className="w-full sm:w-[450px] lg:w-[500px] h-auto shadow-lg p-6">
-      <CardContent>
-        <div>
-          <div className="grid w-full items-center gap-6">
-            {/* Title and Delete Section */}
-            <div className="flex justify-between items-center">
-              <div className="font-extrabold leading-none tracking-tight text-xl">
-                {todos.title}
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckBox id={todos?._id} isComplete={todos?.isComplete} />
-                <button
-                  onClick={handleTodoDelete}
-                  disabled={isDisabled}
-                  className="hover:text-red-400"
+  return (
+    <div className="flex justify-center items-center max-h-[calc(100vh-5rem)] px-4">
+      <Card className="w-full sm:w-[450px] lg:w-[500px] h-auto shadow-lg p-6">
+        <CardContent>
+          <div>
+            <div
+              className="flex items-center gap-3 justify-end"
+              title="Mark as completed"
+            >
+              <CheckBox id={todos?._id} isComplete={todos?.isComplete} />
+              <button
+                onClick={handleTodoDelete}
+                disabled={isDisabled}
+                className="hover:text-red-400"
+                title="Delete this task"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="grid w-full items-center gap-6">
+              {/* Title and Delete Section */}
+              <div className="flex justify-between items-center mt-2">
+                <div
+                  className={`font-extrabold leading-none tracking-tight text-xl ${
+                    todos.isComplete ? "line-through text-gray-500" : ""
+                  }`}
                 >
-                  <Trash2 className="w-5 h-5" />
-                </button>
+                  <p className="pb-2">Task Name:</p> {todos.title}
+                </div>
               </div>
-            </div>
 
-            {/* Description Section */}
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="description">{todos.description}</Label>
-            </div>
+              {/* Description Section */}
+              <div className="flex flex-col space-y-1.5">
+                <p
+                  className={`${
+                    todos.isComplete ? "line-through text-gray-500" : ""
+                  }`}
+                >
+                  Task Description:
+                </p>
+                <Label
+                  htmlFor="description"
+                  className={`${
+                    todos.isComplete ? "line-through text-gray-500" : ""
+                  }`}
+                >
+                  {todos.description}
+                </Label>
+              </div>
 
-            {/* Deadline Section */}
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="deadline" className="flex flex-row gap-2">
-                <p>Deadline:</p>
-                {date}
-              </Label>
+              {/* Deadline Section */}
+              <div className="flex flex-col space-y-1.5">
+                <Label
+                  htmlFor="deadline"
+                  className={`flex flex-row gap-2 ${
+                    todos.isComplete
+                      ? "line-through text-gray-500"
+                      : deadlineColor
+                  }`}
+                >
+                  <p>Deadline:</p>
+                  {date}
+                </Label>
+              </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-);
-
+        </CardContent>
+      </Card>
+    </div>
+  );
 };
 
 export default ToDo;
