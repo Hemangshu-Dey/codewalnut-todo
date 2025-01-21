@@ -83,11 +83,11 @@ export default function Register() {
         }
       );
 
-      toast.success("🎉 User registered successfully.");
+      toast.success("User registered successfully.");
       navigate("/login");
     } catch (error: unknown) {
       console.error(error);
-      toast.error("❗ Error registering user.");
+      toast.error("Error registering user.");
     }
 
     clearFormData();
@@ -144,14 +144,16 @@ export default function Register() {
             <Button type="submit" className="w-full" disabled={isDisabled}>
               Register
             </Button>
-            <Button
-              type="button"
-              className="w-full mt-4"
-              onClick={goToLogin}
-              disabled={isDisabled}
-            >
-              Go to Login Page
-            </Button>
+
+            <p className="w-full mt-4 text-center">Have an account? 
+              <a
+                onClick={goToLogin}
+                className="text-blue-600 hover:underline disabled:pointer-events-none disabled:opacity-50 pl-2"
+                aria-disabled={isDisabled}
+              >
+                 Login here
+              </a>
+            </p>
           </form>
         </CardContent>
       </Card>

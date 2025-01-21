@@ -180,10 +180,12 @@ const Profile = () => {
             </PopoverContent>
           </Popover>
           <main className="flex-1 flex flex-col items-center justify-center overflow-y-auto mb-5">
-            <div className="max-w-3xl w-full p-4 space-y-4 max-h-[calc(100vh-12rem)] mb-5">
-              {todos.map((todo) => (
-                <ToDo key={todo._id} todos={todo} />
-              ))}
+            <div className="max-w-6xl w-full p-4 space-y-4 max-h-[calc(100vh-12rem)] mb-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {todos.map((todo) => (
+                  <ToDo key={todo._id} todos={todo} />
+                ))}
+              </div>
             </div>
           </main>
         </div>

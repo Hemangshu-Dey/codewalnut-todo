@@ -42,7 +42,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
 
   return (
     <header
-      className={`flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-gray-100 border-r border-gray-200 ${className}`}
+      className={`flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-gray-100 border-r border-gray-200s shadow-sm shadow-slate-200 ${className}`}
     >
       <button
         onClick={handleLogout}
