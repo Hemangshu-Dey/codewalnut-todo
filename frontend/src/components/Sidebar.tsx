@@ -122,7 +122,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
 
   return (
     <div
-      className={`w-64 max-h-[calc(100vh-5rem)] bg-gray-100 border-r overflow-hidden border-gray-200 flex flex-col h-full ${className}`}
+      className={`w-64 max-h-[calc(100vh-5rem)] bg-gray-100 border-r overflow-hidden border-gray-200 flex flex-col h-full shadow-slate-400 shadow-xl ${className}`}
     >
       <div className="flex-1 overflow-hidden flex flex-col">
         <nav className="flex-1 overflow-y-auto">

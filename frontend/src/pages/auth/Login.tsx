@@ -124,14 +124,16 @@ export default function Login() {
             >
               Login
             </Button>
-            <Button
-              type="button"
-              className="w-full mt-4"
-              onClick={goToRegister}
-              disabled={isDisabled}
-            >
-              Go to Register Page
-            </Button>
+            <p className="w-full mt-4 text-center">
+              Don't have an account?
+              <a
+                onClick={goToRegister}
+                className="text-blue-600 hover:underline disabled:pointer-events-none disabled:opacity-50 pl-2"
+                aria-disabled={isDisabled}
+              >
+                Register here
+              </a>
+            </p>
           </form>
         </CardContent>
       </Card>
