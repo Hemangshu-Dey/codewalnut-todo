@@ -41,10 +41,10 @@ export default function CheckBox({ id, isComplete }: CheckBoxProps) {
             });
           }
         } else {
-          toast.error("⚠︎ Error fetching data.");
+          toast.error("Error fetching data.");
         }
       } else {
-        toast.error("⚠︎ An unknown error occurred.");
+        toast.error("An unknown error occurred.");
       }
     }
   };

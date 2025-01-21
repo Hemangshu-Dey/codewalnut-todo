@@ -1,6 +1,5 @@
 import { response } from "../utils/response.util.js";
 import { todoCategory } from "../models/todoCategory.model.js";
-import { User } from "../models/user.model.js";
 import { ToDo } from "../models/todo.model.js";
 import { mongoose } from "mongoose";
 
@@ -24,7 +23,6 @@ const getToDoCategory = async (req, res) => {
       todoCategories
     );
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -51,19 +49,8 @@ const createToDoCategory = async (req, res) => {
       userId,
     });
 
-    const userData = await User.findOne({ _id: userId });
-
-    if (!userData.categoryNames) {
-      userData.categoryNames = [];
-    }
-
-    userData.categoryNames = [...userData.categoryNames, newCategory._id];
-
-    await userData.save();
-
     return response(res, 200, "Category created successfully");
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -78,19 +65,12 @@ const deleteToDoCategory = async (req, res) => {
   if (!id) return response(res, 400, "Category id param was not sent");
 
   const deleteId = new mongoose.Types.ObjectId(id);
-  const userId = new mongoose.Types.ObjectId(user.id);
 
   try {
     await todoCategory.deleteOne({ _id: deleteId });
     await ToDo.deleteMany({ todoCategoryId: deleteId });
-    await User.updateOne(
-      { _id: userId },
-      { $pull: { categoryNames: deleteId } }
-    );
-
     return response(res, 200, "Category deleted successfully");
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -105,15 +85,24 @@ const getToDo = async (req, res) => {
   if (!categoryId) return response(res, 400, "Category Id param not received");
 
   const todoCategoryId = new mongoose.Types.ObjectId(categoryId);
+  const userid = new mongoose.Types.ObjectId(user.id);
+
 
   try {
-    const todos = await ToDo.find({
-      todoCategoryId: todoCategoryId,
-    }).select(["-_id, -__v"]);
+     const todoCategories = await todoCategory.findOne({
+       _id: todoCategoryId,
+     });
 
-    return response(res, 200, "ToDos fetched successfully", todos);
+     if (todoCategories.userId.toString() !== userid.toString()) {
+       return response(res, 400, "Category Id param not received");
+     }
+
+     const todos = await ToDo.find({
+       todoCategoryId: todoCategoryId,
+     }).select(["-id, -_v"]);
+
+     return response(res, 200, "ToDos fetched successfully", todos);
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -130,7 +119,7 @@ const createToDo = async (req, res) => {
       return !item;
     })
   )
-    return response(res, 400, "Missing fields were received");
+    return response(res, 400, "Missing fields were received or category not selected");
 
   const newTodoCategoryId = new mongoose.Types.ObjectId(todoCategoryId);
 
@@ -173,7 +162,6 @@ const toggleToDo = async (req, res) => {
 
     return response(res, 200, "ToDo completion toggled successfully", todos);
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };
@@ -200,7 +188,6 @@ const deleteToDo = async (req, res) => {
 
     return response(res, 200, "Todo deleted successfully");
   } catch (error) {
-    console.log(error);
     return response(res, 500, "Internal Server Error", null, error);
   }
 };

@@ -68,17 +68,17 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
       if (axios.isAxiosError(error)) {
         console.log(error);
         if (error.response?.status == 401) {
-          toast.error(`⚠︎ Failed to delete category. Try again.`);
+          toast.error(`Failed to delete category. Try again.`);
           setCurrentUserState({
             userid: "",
             username: "",
             email: "",
           });
         } else {
-          toast.error(`⚠︎ ${error.response?.data.message}.`);
+          toast.error(`${error.response?.data.message}.`);
         }
       } else {
-        toast.error(`⚠︎ An unknown error occurred.`);
+        toast.error(`An unknown error occurred.`);
       }
     }
 
@@ -103,17 +103,17 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status == 401) {
-          toast.error(`⚠︎ Unable to add category. Try again.`);
+          toast.error(`Unable to add category. Try again.`);
           setCurrentUserState({
             userid: "",
             username: "",
             email: "",
           });
         } else {
-          toast.error(`⚠︎ ${error.response?.data.message}.`);
+          toast.error(`${error.response?.data.message}.`);
         }
       } else {
-        toast.error(`⚠︎ An unknown error occurred.`);
+        toast.error(`An unknown error occurred.`);
       }
     }
     setCategoryValue("");

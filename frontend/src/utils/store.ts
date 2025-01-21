@@ -1,17 +1,5 @@
 import { create } from "zustand";
 
-interface Todo {
-  createdAt: Date;
-  deadline: Date;
-  description: string;
-  isComplete: boolean;
-  title: string;
-  todoCategoryId: string;
-  updatedAt: Date;
-  __v: number;
-  _id: string;
-}
-
 interface StoreState {
   currentUser: {
     userid: string;
@@ -35,9 +23,6 @@ interface StoreState {
 
   popoverState: boolean;
   setPopoverState: (value: boolean) => void;
-
-  todosState: Todo[];
-  setTodosState: (todos: Todo[]) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -48,8 +33,8 @@ const useStore = create<StoreState>((set) => ({
   },
   setCurrentUser: (user) =>
     set(() => ({
-      currentUser: user,
-    })),
+        currentUser: user,
+      })),
 
   categoryReRender: false,
   setCategoryReRender: (value) =>
@@ -73,12 +58,6 @@ const useStore = create<StoreState>((set) => ({
   setPopoverState: (value) =>
     set(() => ({
       popoverState: value,
-    })),
-
-  todosState: [],
-  setTodosState: (todos) =>
-    set(() => ({
-      todosState: todos,
     })),
 }));
 

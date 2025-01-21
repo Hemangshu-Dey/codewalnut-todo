@@ -23,8 +23,21 @@ interface CategoryName {
   __v: number;
 }
 
+interface Todo {
+  createdAt: Date;
+  deadline: Date;
+  description: string;
+  isComplete: boolean;
+  title: string;
+  todoCategoryId: string;
+  updatedAt: Date;
+  __v: number;
+  _id: string;
+}
+
 const Profile = () => {
   const [categoryNames, setCategoryNames] = useState<Array<CategoryName>>([]);
+  const [todos, setTodos] = useState<Array<Todo>>([]);
 
   const {
     currentUser,
@@ -35,8 +48,6 @@ const Profile = () => {
     todoReRender,
     popoverState,
     setPopoverState,
-    todosState,
-    setTodosState,
   } = useStore();
 
   const navigate = useNavigate();
@@ -128,7 +139,7 @@ const Profile = () => {
             withCredentials: true,
           }
         );
-        setTodosState(response.data.data || []);
+        setTodos(response.data.data || []);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (error.response?.status == 401) {
@@ -150,7 +161,7 @@ const Profile = () => {
       }
     };
     getToDos();
-  }, [todoReRender, activeCategory, setTodosState, navigate, setCurrentUser]);
+  }, [todoReRender, activeCategory, navigate, setCurrentUser]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -170,7 +181,7 @@ const Profile = () => {
           </Popover>
           <main className="flex-1 flex flex-col items-center justify-center overflow-y-auto mb-5">
             <div className="max-w-3xl w-full p-4 space-y-4 max-h-[calc(100vh-12rem)] mb-5">
-              {todosState?.map((todo) => (
+              {todos.map((todo) => (
                 <ToDo key={todo._id} todos={todo} />
               ))}
             </div>

@@ -7,7 +7,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ className = "" }: NavbarProps) {
-  const { currentUser, setCurrentUser } = useStore();
+  const { currentUser, setCurrentUser ,setActiveCategory} = useStore();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -27,6 +27,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
          username: "",
          email: "",
        });
+       setActiveCategory("")
       navigate("/");
       toast.success("Logged out successfully")
     } catch (error: unknown) {
@@ -44,7 +45,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
       className={`flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-gray-100 border-r border-gray-200 ${className}`}
     >
       <button
-        onClick={handleLogout} // Use the same logout handler
+        onClick={handleLogout}
         className="flex-row justify-center items-center hidden lg:flex"
       >
         <p className="font-extrabold leading-none tracking-tight text-2xl">
