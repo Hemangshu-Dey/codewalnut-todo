@@ -52,6 +52,12 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query.toLowerCase());
+  };
+
   useEffect(() => {
     if (currentUser.username) return;
 
@@ -169,22 +175,40 @@ const Profile = () => {
       <div className="flex flex-1 overflow-y-auto">
         <Sidebar className="flex-shrink-0 w-64" categoryNames={categoryNames} />
         <div className="flex flex-col items-center justify-center mt-5 w-full">
-          <Popover open={popoverState} onOpenChange={setPopoverState}>
-            <PopoverTrigger>
-              <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:scale-105 ease-in-out duration-300 disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 shadow-lg">
-                Add Task
-              </button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <AddTask />
-            </PopoverContent>
-          </Popover>
+          <div className="flex items-center justify-between w-full max-w-6xl px-4">
+            {/* Add Task Button */}
+            <Popover open={popoverState} onOpenChange={setPopoverState}>
+              <PopoverTrigger>
+                <button className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:scale-105 ease-in-out duration-300 disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 shadow-lg">
+                  Add Task
+                </button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <AddTask />
+              </PopoverContent>
+            </Popover>
+
+            {/* Search Bar */}
+            <div className="flex items-center w-full max-w-md">
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+          </div>
+
           <main className="flex-1 flex flex-col items-center justify-center overflow-y-auto mb-5">
             <div className="max-w-6xl w-full p-4 space-y-4 max-h-[calc(100vh-12rem)] mb-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {todos.map((todo) => (
-                  <ToDo key={todo._id} todos={todo} />
-                ))}
+                {todos
+                  .filter((todo) =>
+                    todo.title.toLowerCase().includes(searchQuery)
+                  )
+                  .map((todo) => (
+                    <ToDo key={todo._id} todos={todo} />
+                  ))}
               </div>
             </div>
           </main>
