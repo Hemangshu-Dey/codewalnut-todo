@@ -4,7 +4,7 @@ import useStore from "@/utils/store";
 import { getNewAccessToken } from "@/utils/getNewAccessToken";
 import { useNavigate, Outlet } from "react-router-dom";
 
-const Home = () => {
+const AuthWrapper = () => {
   const { currentUser, setCurrentUser } = useStore();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Home = () => {
           email: response.data.data.email,
         });
 
-        navigate("/profile");
+        navigate("/home");
       } catch (error) {
         console.log("Error reached");
 
@@ -39,7 +39,7 @@ const Home = () => {
                 username: res.data.data.username,
                 email: res.data.data.email,
               });
-              navigate("/profile");
+              navigate("/home");
             }
           } else {
             navigate("/register");
@@ -56,4 +56,4 @@ const Home = () => {
   return <Outlet />;
 };
 
-export default Home;
+export default AuthWrapper;

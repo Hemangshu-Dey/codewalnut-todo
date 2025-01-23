@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import CheckBox from "./ui/checkbox";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Label } from "@/components/ui/Label";
+import CheckBox from "./ui/Checkbox";
 import { Trash2 } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";

@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
+import AuthWrapper from "./pages/AuthWrapper";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
-import Profile from "./pages/profile/Profile";
+import Home from "./pages/home/Home";
 import { Toaster } from "sonner";
 
 export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <AuthWrapper />,
       children: [
         {
           path: "/register",
@@ -20,8 +20,8 @@ export default function App() {
           element: <Login />,
         },
         {
-          path: "/profile",
-          element: <Profile />,
+          path: "/home",
+          element: <Home />,
         },
       ],
     },

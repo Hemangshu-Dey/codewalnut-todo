@@ -2,13 +2,13 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "./calender";
+import { Button } from "@/components/ui/Button";
+import { Calendar } from "./Calender";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/Popover";
 
 interface DatePickerDemoProps {
   selectedDate: string | undefined;
