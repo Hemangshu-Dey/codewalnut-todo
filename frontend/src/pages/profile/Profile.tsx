@@ -67,7 +67,7 @@ const Profile = () => {
           `${import.meta.env.VITE_BACKEND_URL}/api/auth/validation`,
           {
             withCredentials: true,
-          }
+          },
         );
 
         setCurrentUser({
@@ -105,7 +105,7 @@ const Profile = () => {
           `${import.meta.env.VITE_BACKEND_URL}/api/todo/getToDoCategory`,
           {
             withCredentials: true,
-          }
+          },
         );
         setCategoryNames(response.data.data);
         setActiveCategory(response.data.data[0]?._id);
@@ -143,7 +143,7 @@ const Profile = () => {
           }/api/todo/getToDo?categoryId=${activeCategory}`,
           {
             withCredentials: true,
-          }
+          },
         );
         setTodos(response.data.data || []);
       } catch (error) {
@@ -204,7 +204,7 @@ const Profile = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {todos
                   .filter((todo) =>
-                    todo.title.toLowerCase().includes(searchQuery)
+                    todo.title.toLowerCase().includes(searchQuery),
                   )
                   .map((todo) => (
                     <ToDo key={todo._id} todos={todo} />

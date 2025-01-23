@@ -18,9 +18,9 @@ export default function Register() {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-   const goToLogin = () => {
-     navigate("/login");
-   };
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   const [formData, setFormData] = useState<FormData>({
     username: "",
@@ -47,7 +47,6 @@ export default function Register() {
   };
 
   const handleRegister = async (e: React.FormEvent) => {
-
     e.preventDefault();
     setIsDisabled(true);
 
@@ -68,7 +67,7 @@ export default function Register() {
     if (!passwordRegEx.test(formData.password)) {
       setIsDisabled(false);
       toast.error(
-        "Enter a strong password:\n- At least 8 characters long\n- Contains a lowercase letter\n- Contains an uppercase letter\n- Contains a number\n- Contains a special character"
+        "Enter a strong password:\n- At least 8 characters long\n- Contains a lowercase letter\n- Contains an uppercase letter\n- Contains a number\n- Contains a special character",
       );
       return;
     }
@@ -80,7 +79,7 @@ export default function Register() {
           username: formData.username,
           email: formData.email,
           password: formData.password,
-        }
+        },
       );
 
       toast.success("User registered successfully.");
@@ -145,13 +144,14 @@ export default function Register() {
               Register
             </Button>
 
-            <p className="w-full mt-4 text-center">Have an account? 
+            <p className="w-full mt-4 text-center">
+              Have an account?
               <a
                 onClick={goToLogin}
                 className="text-blue-600 hover:underline disabled:pointer-events-none disabled:opacity-50 pl-2"
                 aria-disabled={isDisabled}
               >
-                 Login here
+                Login here
               </a>
             </p>
           </form>

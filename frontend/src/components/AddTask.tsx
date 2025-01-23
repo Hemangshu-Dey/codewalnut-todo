@@ -19,7 +19,7 @@ const AddTask = () => {
     description: "",
   });
   const [selectedDate, setSelectedDate] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ const AddTask = () => {
   const handleAddTask = async () => {
     setIsDisabled(true);
     if (!formData.title || !formData.description || !selectedDate) {
-      toast.error("⚠︎ Empty fields found.");
+      toast.error("Empty fields found.");
       setIsDisabled(false);
       return;
     }
@@ -62,7 +62,7 @@ const AddTask = () => {
         },
         {
           withCredentials: true,
-        }
+        },
       );
       toast.success(`${formData.title} task added.`);
       setTodoRender(!todoRender);

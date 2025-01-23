@@ -1,0 +1,23 @@
+{
+  "semi": true,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "jsxSingleQuote": false,
+  "importOrder": [
+    "(^react$|^react/(.*)$)",
+    "<THIRD_PARTY_MODULES>",
+    "@/components/*",
+    "@/contexts/*",
+    "@/hooks/*",
+    "@/pages/*",
+    "@/public/*",
+    "@/styles/*",
+    "@/utils/*",
+    "@/types",
+    "^[../]",
+    "^[./]"
+  ]
+}

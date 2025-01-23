@@ -25,7 +25,7 @@ export default function CheckBox({ id, isComplete }: CheckBoxProps) {
         `${import.meta.env.VITE_BACKEND_URL}/api/todo/toggleToDo?todoId=${id}`,
         {
           withCredentials: true,
-        }
+        },
       );
     } catch (error) {
       if (axios.isAxiosError(error)) {
