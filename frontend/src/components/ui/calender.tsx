@@ -23,7 +23,7 @@ function Calendar({
           month: "space-y-4",
           nav_button: cn(
             buttonVariants({ variant: "outline" }),
-            "h-8 w-8 p-0 flex items-center justify-center rounded-full"
+            "h-8 w-8 p-0 flex items-center justify-center rounded-full",
           ),
           nav_button_previous: "absolute left-0",
           nav_button_next: "absolute right-0",
@@ -31,7 +31,7 @@ function Calendar({
             "relative p-0 text-center text-sm",
             props.mode === "range"
               ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
-              : "[&:has([aria-selected])]:rounded-md"
+              : "[&:has([aria-selected])]:rounded-md",
           ),
           day_range_start: "day-range-start",
           day_range_end: "day-range-end",

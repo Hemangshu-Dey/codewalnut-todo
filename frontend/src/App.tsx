@@ -28,9 +28,9 @@ export default function App() {
   ]);
 
   return (
-      <div>
-        <Toaster/>
-        <RouterProvider router={router} />
-      </div>
+    <div>
+      <Toaster />
+      <RouterProvider router={router} />
+    </div>
   );
 }

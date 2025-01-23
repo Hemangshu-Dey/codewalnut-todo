@@ -19,7 +19,6 @@ export default function Login() {
   });
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-
   const goToRegister = () => {
     navigate("/register");
   };
@@ -45,7 +44,6 @@ export default function Login() {
     e.preventDefault();
     setIsDisabled(true);
 
-
     for (const key in formData) {
       if (!formData[key as keyof FormData]) {
         setIsDisabled(false);
@@ -63,7 +61,7 @@ export default function Login() {
         },
         {
           withCredentials: true,
-        }
+        },
       );
       setCurrentUserState({
         userid: response.data.data.id,

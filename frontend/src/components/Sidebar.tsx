@@ -39,14 +39,14 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
   };
 
   const handleCategoryValueChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setCategoryValue(e.target.value);
   };
 
   const handleCategoryDelete = async (
     e: React.MouseEvent,
-    item: categoryName
+    item: categoryName,
   ) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
         }`,
         {
           withCredentials: true,
-        }
+        },
       );
       toast.success(`${item.categoryName} category deleted.`);
       setCategoryRender(!categoryRender);
@@ -96,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "", categoryNames }) => {
         },
         {
           withCredentials: true,
-        }
+        },
       );
       toast.success(`${categoryValue} category added.`);
       setCategoryRender(!categoryRender);

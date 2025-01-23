@@ -33,8 +33,8 @@ const useStore = create<StoreState>((set) => ({
   },
   setCurrentUser: (user) =>
     set(() => ({
-        currentUser: user,
-      })),
+      currentUser: user,
+    })),
 
   categoryReRender: false,
   setCategoryReRender: (value) =>

@@ -43,7 +43,7 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      }),
     );
 
     if (dateObj < today) {
@@ -64,7 +64,7 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
         }`,
         {
           withCredentials: true,
-        }
+        },
       );
       toast.success(`${todos.title} task deleted.`);
       setTodoRender(!todoRender);
@@ -94,7 +94,7 @@ const ToDo: React.FC<todoProps> = ({ todos }) => {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      }),
     );
   }, [todos.deadline]);
 

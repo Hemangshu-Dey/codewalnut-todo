@@ -6,7 +6,7 @@ export async function getNewAccessToken() {
       `${import.meta.env.VITE_BACKEND_URL}/api/token/newToken`,
       {
         withCredentials: true,
-      }
+      },
     );
     return response;
   } catch (error) {

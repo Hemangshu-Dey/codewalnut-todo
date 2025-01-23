@@ -7,7 +7,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ className = "" }: NavbarProps) {
-  const { currentUser, setCurrentUser ,setActiveCategory} = useStore();
+  const { currentUser, setCurrentUser, setActiveCategory } = useStore();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -19,17 +19,17 @@ export default function Navbar({ className = "" }: NavbarProps) {
         },
         {
           withCredentials: true,
-        }
+        },
       );
 
-       setCurrentUser({
-         userid: "",
-         username: "",
-         email: "",
-       });
-       setActiveCategory("")
+      setCurrentUser({
+        userid: "",
+        username: "",
+        email: "",
+      });
+      setActiveCategory("");
       navigate("/");
-      toast.success("Logged out successfully")
+      toast.success("Logged out successfully");
     } catch (error: unknown) {
       console.log("Error logging out", error);
       if (error instanceof Error) {
