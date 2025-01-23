@@ -10,7 +10,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/Popover";
 import AddTask from "@/components/AddTask";
 import useStore from "@/utils/store";
 
@@ -35,7 +35,7 @@ interface Todo {
   _id: string;
 }
 
-const Profile = () => {
+const Home = () => {
   const [categoryNames, setCategoryNames] = useState<Array<CategoryName>>([]);
   const [todos, setTodos] = useState<Array<Todo>>([]);
 
@@ -218,4 +218,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Home;

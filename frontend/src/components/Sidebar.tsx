@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Clipboard, Plus, Trash2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/Input";
 import axios from "axios";
 import { toast } from "sonner";
 import useStore from "@/utils/store";

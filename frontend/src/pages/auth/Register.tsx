@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { useNavigate } from "react-router-dom";
-import { passwordRegEx, emailRegEx } from "@/constants/RegEx";
+import { passwordRegEx, emailRegEx } from "@/constants/regEx";
 import { toast } from "sonner";
 import axios from "axios";
 
