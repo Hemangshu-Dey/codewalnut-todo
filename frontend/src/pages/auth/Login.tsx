@@ -95,7 +95,7 @@ export default function Login() {
                 id="identifier"
                 name="identifier"
                 type="test"
-                placeholder="Username or Email"
+                placeholder="Enter email or username..."
                 value={formData.identifier}
                 onChange={handleChange}
                 required
@@ -107,7 +107,7 @@ export default function Login() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="Enter password..."
                 value={formData.password}
                 onChange={handleChange}
                 required
