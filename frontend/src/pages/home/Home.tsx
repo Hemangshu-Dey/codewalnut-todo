@@ -5,13 +5,13 @@ import Sidebar from "@/components/Sidebar";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { getNewAccessToken } from "@/utils/getNewAccessToken";
-import ToDo from "@/components/Todo";
+import ToDo from "@/components/organism/Todo/Todo";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/Popover";
-import AddTask from "@/components/AddTask";
+} from "@/components/atoms/Popover/Popover";
+import AddTask from "@/components/organism/AddTask/AddTask";
 import useStore from "@/utils/store";
 
 interface CategoryName {

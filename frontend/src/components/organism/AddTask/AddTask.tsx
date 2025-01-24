@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardFooter } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
+import { Button } from "@/components/atoms/Button/Button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+} from "@/components/molecules/Card/Card";
+import { Input } from "@/components/atoms/Input/Input";
+import { Label } from "@/components/atoms/Label/Label";
 import { toast } from "sonner";
 import axios from "axios";
 import useStore from "@/utils/store";
-import { DatePickerDemo } from "./ui/Datepicker";
+import { DatePickerDemo } from "../../molecules/Datepicker/Datepicker";
 
 interface data {
   title: string;
