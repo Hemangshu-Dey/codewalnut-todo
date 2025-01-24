@@ -104,12 +104,12 @@ export default function Register() {
         <CardContent>
           <form className="space-y-4" onSubmit={handleRegister}>
             <div className="space-y-2">
-              <Label htmlFor="username">Name</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
                 name="username"
                 type="text"
-                placeholder="John Doe"
+                placeholder="Enter username..."
                 value={formData.username}
                 onChange={handleChange}
                 required
@@ -121,7 +121,7 @@ export default function Register() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="Enter email..."
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -133,7 +133,7 @@ export default function Register() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="Enter password..."
                 value={formData.password}
                 onChange={handleChange}
                 required
