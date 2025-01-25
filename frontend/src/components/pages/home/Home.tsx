@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/organism/Navbar/Navbar";
+import Sidebar from "@/components/organism/Sidebar/Sidebar";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { getNewAccessToken } from "@/utils/getNewAccessToken";
