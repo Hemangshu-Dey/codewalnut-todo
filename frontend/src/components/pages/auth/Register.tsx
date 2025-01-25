@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Label } from "@/components/atoms/Label/Label";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/molecules/Card/Card";
 import { useNavigate } from "react-router-dom";
 import { passwordRegEx, emailRegEx } from "@/constants/regEx";
 import { toast } from "sonner";
 import axios from "axios";
-
+import { Input } from "@/components/atoms/Input/Input";
+import { Button } from "@/components/atoms/Button/Button";
 interface FormData {
   username: string;
   email: string;

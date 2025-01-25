@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthWrapper from "./pages/AuthWrapper";
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
-import Home from "./pages/home/Home";
+import AuthWrapper from "./components/pages/AuthWrapper/AuthWrapper";
+import Register from "./components/pages/auth/Register";
+import Login from "./components/pages/auth/Login";
+import Home from "./components/pages/home/Home";
 import { Toaster } from "sonner";
 
 export default function App() {

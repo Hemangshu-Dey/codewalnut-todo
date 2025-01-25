@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/organism/Navbar/Navbar";
+import Sidebar from "@/components/organism/Sidebar/Sidebar";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { getNewAccessToken } from "@/utils/getNewAccessToken";
-import ToDo from "@/components/Todo";
+import ToDo from "@/components/organism/Todo/Todo";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/Popover";
-import AddTask from "@/components/AddTask";
+} from "@/components/atoms/Popover/Popover";
+import AddTask from "@/components/organism/AddTask/AddTask";
 import useStore from "@/utils/store";
 
 interface CategoryName {
